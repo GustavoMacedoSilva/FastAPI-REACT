@@ -3,8 +3,9 @@ from pydantic import BaseModel
 
 class User(BaseModel):
     username: str
-    name: Optional[str] = None
+    nome: Optional[str] = None
+    username: str
     
 class Artist(BaseModel):
-    name: str
+    nome: str
     music_genre: List[str]

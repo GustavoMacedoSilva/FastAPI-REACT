@@ -1,8 +1,10 @@
-from database import base
+from .database import base
 from sqlalchemy import Column, Integer, String
 
 class User(base):
-    id = Column(Integer, primary_key=True, index=True, autoincrement=True)
-    nome = Column(String)
-    username = Column(String, index=True, unique=True)
+    __tablename__ = 'user'
     
+    id = Column(Integer, primary_key=True, index=True, autoincrement=True)
+    nome = Column(String, nullable=True)
+    username = Column(String, index=True, unique=True)
+    favorite_artist = Column(String, nullable=True)
