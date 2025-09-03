@@ -1,27 +1,15 @@
 from fastapi import FastAPI
-from typing import Optional
+from app.api.routes_user import router as user_router
+from app.api.routes_artist import router as artist_router
 
-app = FastAPI()
+app = FastAPI(
+    title="SocialJAM",
+    description="API to socialize based on your music taste",
+)
 # uvicorn main:app --reload
-@app.get('/artist')#apenas pegamos 10 artistas
-def index(limit =10,most_famous:bool=False, sort: Optional[str]= None):
-    if most_famous:
-        return {'data': f'{limit} most famous artist from the db'}
-    else:
-        return {'data': f'{limit} artist from the db'}
 
-@app.get('/artist/{artist_id}')
-def showArtist(artist_id: int):
-    return {'data': artist_id}
-
-@app.get('/user/{user_username}/listenedAlbums')
-def listenedAlbums(user_username: str):
-    return {'data': {'Album 1', 'Album 2'}}
-
-@app.get('/user/{user_username}/reviews')
-def userReviews(user_username):
-    return {'data': {'review1': "blablabla", 'review2': "blablablba"}}
-
+app.include_router(user_router)
+app.include_router(artist_router)
 
 if __name__ == "__main__":
     import uvicorn
